@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+.idea/
+cmake-build-debug/
+build/
+/.settings/
+/.cproject
+/.project
+/.DS_Store

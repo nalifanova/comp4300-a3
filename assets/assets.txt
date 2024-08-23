@@ -1,0 +1,44 @@
+Texture     TexStand    images/megaman/stand64.png
+Texture     TexNone     images/megaman/megaShot.png
+Texture     TexRun      images/megaman/run64.png
+Texture     TexAir      images/megaman/air64.png
+Texture     TexBuster   images/megaman/buster.png
+Texture     TexExplode  images/misc/explosion.png
+Texture     TexCoin     images/misc/coinspin.png
+Texture     TexBrick    images/mario/brick.png
+Texture     TexQ        images/mario/qfade.png
+Texture     TexQ2       images/mario/question2.png
+Texture     TexPipeS    images/mario/pipesmall.png
+Texture     TexPipeT    images/mario/pipetall.png
+Texture     TexCloudB   images/mario/cloudbig.png
+Texture     TexCloudS   images/mario/cloudsmall.png
+Texture     TexBush     images/mario/bush.png
+Texture     TexBushBig  images/mario/bushbig.png
+Texture     TexGround   images/mario/ground.png
+Texture     TexBlock    images/mario/block.png
+Texture     TexPole     images/mario/flagpole.png
+Texture     TexPoleTop  images/mario/flagtop.png
+Texture     TexFlag     images/mario/flag.png
+Animation   Stand       TexStand    1   0
+Animation   Run         TexRun      4   10
+Animation   Air         TexAir      1   0
+Animation   Buster      TexBuster   1   0
+Animation   Explosion   TexExplode  48  2
+Animation   Coin        TexCoin     6   5
+Animation   Question    TexQ        4   10
+Animation   Brick       TexBrick    1   0
+Animation   Question2   TexQ2       1   0
+Animation   PipeTall    TexPipeT    1   0
+Animation   PipeSmall   TexPipeS    1   0
+Animation   CloudBig    TexCloudB   1   0
+Animation   CloudSmall  TexCloudS   1   0
+Animation   Bush        TexBush     1   0
+Animation   BushBig     TexBushBig  1   0
+Animation   Ground      TexGround   1   0
+Animation   Block       TexBlock    1   0
+Animation   Flag        TexFlag     1   0
+Animation   Pole        TexPole     1   0
+Animation   PoleTop     TexPoleTop  1   0
+Font        Tech        fonts/tech.ttf
+Font        Mario       fonts/mario.ttf
+Font        Megaman     fonts/megaman.ttf
