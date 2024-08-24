@@ -68,6 +68,7 @@ void GameEngine::sUserInput()
 
 std::shared_ptr<Scene> GameEngine::currentScene()
 {
+    std::cout << "Current Scene: " << m_currentScene << "\n";
     return m_sceneMap[m_currentScene];
 }
 
