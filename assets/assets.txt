@@ -42,3 +42,4 @@ Animation   PoleTop     TexPoleTop  1   0
 Font        Tech        fonts/tech.ttf
 Font        Mario       fonts/mario.ttf
 Font        Megaman     fonts/megaman.ttf
+Font        Pixel       fonst/pixeled.ttf

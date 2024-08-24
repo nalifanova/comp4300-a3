@@ -47,6 +47,29 @@ include_directories(assets)
 
 add_executable(${PROJECT_NAME}
     main.cpp
+    include/Action.hpp
+    include/Animation.hpp
+    include/Assets.hpp
+    include/Components.hpp
+    include/GameEngine.hpp
+    include/Entity.hpp
+    include/EntityManager.hpp
+    include/Physics.hpp
+    include/Scene.hpp
+    include/SceneMenu.hpp
+    include/ScenePlay.hpp
+    include/Vec2.hpp
+    src/Action.cpp
+    src/Animation.cpp
+    src/Assets.cpp
+    src/GameEngine.cpp
+    src/Entity.cpp
+    src/EntityManager.cpp
+    src/Physics.cpp
+    src/Scene.cpp
+    src/SceneMenu.cpp
+    src/ScenePlay.cpp
+    src/Vec2.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC ImGui-SFML::ImGui-SFML)
