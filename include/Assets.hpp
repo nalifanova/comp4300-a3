@@ -6,6 +6,22 @@
 
 #include "Animation.hpp"
 
+struct TexConf
+{
+    std::string name, filepath;
+};
+
+struct FontConf
+{
+    std::string name, filepath;
+};
+
+struct AnimConf
+{
+    std::string animName, texName;
+    int frameCount, animSpeed;
+};
+
 class Assets
 {
 public:
@@ -27,6 +43,10 @@ private:
     std::map<std::string, sf::Texture> m_textures;
     std::map<std::string, Animation> m_animations;
     std::map<std::string, sf::Font> m_fonts;
+
+    TexConf m_texConf;
+    AnimConf m_animConf;
+    FontConf m_fontConf;
 
     friend class GameEngine;
 };

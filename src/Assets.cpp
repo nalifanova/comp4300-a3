@@ -1,17 +1,43 @@
 #include "Assets.hpp"
 
 #include <cassert>
+#include <fstream>
+
+#include "FileUtils.hpp"
 
 void Assets::loadFromFile(const std::string& path)
 {
-    // implement
+    const auto filePath = getFullPath(path);
+    std::cout << "Contig file: " << filePath << "\n";
+
+    std::ifstream fin(filePath);
+    std::string token = "none";
+
+    while (fin >> token)
+    {
+        if (token == "Texture")
+        {
+            fin >> m_texConf.name >> m_texConf.filepath;
+            addTexture(m_texConf.name, m_texConf.filepath);
+        }
+        else if (token == "Animation")
+        {
+            fin >> m_animConf.animName >> m_animConf.texName >> m_animConf.frameCount >> m_animConf.animSpeed;
+            addAnimation(m_animConf.animName, m_animConf.texName, m_animConf.frameCount, m_animConf.animSpeed);
+        }
+        else if (token == "Font")
+        {
+            fin >> m_fontConf.name >> m_fontConf.filepath;
+            addFont(m_fontConf.name, m_fontConf.filepath);
+        }
+    }
 }
 
 void Assets::addTexture(const std::string& name, const std::string& path, const bool smooth)
 {
     m_textures[name] = sf::Texture();
 
-    if (!m_textures[name].loadFromFile(path))
+    if (!m_textures[name].loadFromFile(getFullPath(path)))
     {
         std::cerr << "Could not load texture from: " << path << "\n";
         m_textures.erase(name);
@@ -32,14 +58,14 @@ void Assets::addAnimation(const std::string& animName, const std::string& texNam
 void Assets::addFont(const std::string& name, const std::string& path)
 {
     m_fonts[name] = sf::Font();
-    if (!m_fonts[name].loadFromFile(path))
+    if (!m_fonts[name].loadFromFile(getFullPath(path)))
     {
         std::cerr << "Could not load from file: " << path << "\n";
         m_fonts.erase(name);
     }
     else
     {
-        std::cerr << "Loaded font: " << path << "\n";
+        std::cout << "Loaded font: " << path << "\n";
     }
 }
 

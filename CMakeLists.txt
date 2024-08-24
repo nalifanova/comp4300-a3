@@ -51,6 +51,7 @@ add_executable(${PROJECT_NAME}
     include/Animation.hpp
     include/Assets.hpp
     include/Components.hpp
+    include/FileUtils.hpp
     include/GameEngine.hpp
     include/Entity.hpp
     include/EntityManager.hpp
@@ -62,6 +63,7 @@ add_executable(${PROJECT_NAME}
     src/Action.cpp
     src/Animation.cpp
     src/Assets.cpp
+    src/FileUtils.cpp
     src/GameEngine.cpp
     src/Entity.cpp
     src/EntityManager.cpp
