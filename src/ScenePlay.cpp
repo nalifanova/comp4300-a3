@@ -6,6 +6,7 @@
 #include "Assets.hpp"
 #include "Components.hpp"
 #include "GameEngine.hpp"
+#include "SceneMenu.hpp"
 
 ScenePlay::ScenePlay(GameEngine* gameEngine, std::string  levelPath):
     Scene(gameEngine), m_levelPath(std::move(levelPath))
@@ -21,11 +22,15 @@ void ScenePlay::init(const std::string& levelPath)
     registerAction(sf::Keyboard::C, "ToggleCollision");
     registerAction(sf::Keyboard::G, "ToggleGrid");
     // Example
-    registerAction(sf::Keyboard::U, "UP");
+    registerAction(sf::Keyboard::W, "Up");
+    registerAction(sf::Keyboard::A, "Left");
+    registerAction(sf::Keyboard::D, "Right");
+    registerAction(sf::Keyboard::Space, "Shoot");
+
 
     // TODO: Register all other gameplay Actions
     m_gridText.setCharacterSize(12);
-    // m_gridText.setFont(m_game->assets().getFont("Tech"));
+    m_gridText.setFont(m_game->assets().getFont("Tech"));
     loadLevel(levelPath);
 }
 
@@ -43,7 +48,7 @@ Vec2 ScenePlay::gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity>
 
 void ScenePlay::loadLevel(const std::string& filename)
 {
-    std::cout << "ScenePlay::LoadLevel\n";
+    std::cout << "ScenePlay::LoadLevel " << filename << "\n";
     // reset the entity manager every time we load a level
     m_entityManager = EntityManager();
 
@@ -116,12 +121,13 @@ void ScenePlay::spawnBullet(std::shared_ptr<Entity> entity)
 void ScenePlay::update()
 {
     m_entityManager.update();
-
-    // TODO: implement pause functionality
-
-    sMovement();
-    sLifespan();
-    sCollision();
+    if (!m_paused)
+    {
+        sMovement();
+        sLifespan();
+        sCollision();
+        m_currentFrame++;
+    }
     sAnimation();
     sRender();
 }
@@ -177,6 +183,7 @@ void ScenePlay::sCollision()
 
 void ScenePlay::sDoAction(const Action& action)
 {
+    std::cout << "system do Action: " << action.name() << "\n";
     if (action.type() == "Start")
     {
         if (action.name() == "ToggleTexture") { m_drawTextures = !m_drawTextures; }
@@ -185,11 +192,17 @@ void ScenePlay::sDoAction(const Action& action)
         if (action.name() == "Pause") { setPaused(!m_paused); }
         if (action.name() == "Quit") { onEnd(); }
 
-        if (action.name() == "UP") { m_player->getComponent<CInput>().up = true; } // e.g.
+        if (action.name() == "Up") { m_player->getComponent<CInput>().up = true; }
+        if (action.name() == "Left") { m_player->getComponent<CInput>().left = true; }
+        if (action.name() == "Right") { m_player->getComponent<CInput>().right = true; }
+        if (action.name() == "Shoot") { m_player->getComponent<CInput>().shoot = true; }
     }
     else if (action.type() == "End")
     {
-        if (action.name() == "UP") { m_player->getComponent<CInput>().up = false; } // e.g.
+        if (action.name() == "Up") { m_player->getComponent<CInput>().up = false; }
+        if (action.name() == "Left") { m_player->getComponent<CInput>().left = false; }
+        if (action.name() == "Right") { m_player->getComponent<CInput>().right = false; }
+        if (action.name() == "Shoot") { m_player->getComponent<CInput>().shoot = false; }
     }
 }
 
@@ -215,8 +228,7 @@ void ScenePlay::sAnimation()
 
 void ScenePlay::onEnd()
 {
-    // TODO: When the scene ends, change back to the MENU scene
-    //       use m_game->changeScene(correct params)
+    m_game->changeScene("Menu", std::make_shared<SceneMenu>(m_game));
 }
 
 void ScenePlay::sRender()
@@ -224,6 +236,10 @@ void ScenePlay::sRender()
     // color the background darker so you know that the game is paused
     if (!m_paused) { m_game->window().clear(sf::Color(100, 100, 255)); }
     else { m_game->window().clear(sf::Color(50, 50, 150)); }
+
+    // DEBUG-MESSAGE
+    debugMessage("Scene play - " + m_game->currentSceneName());
+    // ---------- DEBUG-MESSAGE
 
     // set the viewport of the window to be centered on the player if it's fat enough right
     auto& pPos = m_player->getComponent<CTransform>().pos;
@@ -298,6 +314,8 @@ void ScenePlay::sRender()
             }
         }
     }
+
+    m_game->window().display();
 }
 
 void ScenePlay::sLifespan()
@@ -307,7 +325,20 @@ void ScenePlay::sLifespan()
 
 void ScenePlay::doAction(const Action& action)
 {
-    std::cout << "ScenePlay::doAction(" << action.name() << ")\n";
+    sDoAction(action);
+}
+
+void ScenePlay::debugMessage(const std::string& message) const
+{
+    sf::Text text;
+    text.setFont(m_game->assets().getFont("Tech"));
+    text.setString(message);
+    text.setCharacterSize(32);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(sf::Vector2f(
+        width() - text.getGlobalBounds().width - 10,
+        text.getCharacterSize() - 10 ));
+    m_game->window().draw(text);
 }
 
 

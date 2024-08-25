@@ -66,12 +66,7 @@ void GameEngine::sUserInput()
     }
 }
 
-std::shared_ptr<Scene> GameEngine::currentScene()
-{
-    std::cout << "Current Scene: " << m_currentScene << "\n";
-    return m_sceneMap[m_currentScene];
-}
-
+std::shared_ptr<Scene> GameEngine::currentScene() { return m_sceneMap[m_currentScene]; }
 
 // public methods
 void GameEngine::changeScene(const std::string& name, const std::shared_ptr<Scene>& scene, bool endCurrentScene)
@@ -96,5 +91,6 @@ void GameEngine::run()
 
 sf::RenderWindow& GameEngine::window() { return m_window; }
 
- Assets& GameEngine::assets() { return m_assets; }
+Assets& GameEngine::assets() { return m_assets; }
 
+std::string GameEngine::currentSceneName() { return m_currentScene; }

@@ -50,6 +50,7 @@ protected:
     sf::Text m_gridText;
 
 private:
+    void debugMessage(const std::string& message) const;
     EntityManager m_entityManager;
 
 };

@@ -29,4 +29,4 @@ void Scene::drawLine(const Vec2& p1, const Vec2& p2) const
     this->m_game->window().draw(line);
 }
 
-void Scene::setPaused(bool paused) { m_paused = paused; }
+void Scene::setPaused(const bool paused) { m_paused = paused; }

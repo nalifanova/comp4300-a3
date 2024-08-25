@@ -23,7 +23,8 @@ public:
     void run();
 
     sf::RenderWindow& window();
-     Assets& assets();
+    Assets& assets();
+    [[nodiscard]] std::string currentSceneName();
 
 protected:
     void init(const std::string& path);

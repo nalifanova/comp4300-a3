@@ -13,20 +13,14 @@ void SceneMenu::sRender()
     m_menuText.setString(m_title);
     m_menuText.setCharacterSize(32);
     m_menuText.setFillColor(sf::Color::Black);
-    m_menuText.setPosition(sf::Vector2f(
-            m_game->window().getSize().x / 2 - m_menuText.getCharacterSize() * 3,
-            10
-            )
-        );
+    m_menuText.setPosition(sf::Vector2f(width() / 2 - m_menuText.getCharacterSize() * 3, 10));
     m_game->window().draw(m_menuText);
 
     m_menuText.setString("A: Left    S: Down    Up: W    D: Play");
     m_menuText.setFillColor(sf::Color::Black);
     m_menuText.setCharacterSize(12);
     m_menuText.setPosition(sf::Vector2f(
-            m_menuText.getCharacterSize(),
-            height() - m_menuText.getCharacterSize() * 2
-            )
+            m_menuText.getCharacterSize(), height() - m_menuText.getCharacterSize() * 2)
         );
     m_game->window().draw(m_menuText);
 
@@ -71,22 +65,27 @@ void SceneMenu::init()
 
 void SceneMenu::update()
 {
-    sRender();
     m_entityManager.update();
-    sUserInput();
+    sRender();
 }
 
-void SceneMenu::sDoAction(const Action& action) {}
-
-void SceneMenu::doAction(const Action& action)
+void SceneMenu::sDoAction(const Action& action)
 {
     if (action.type() == "Start")
     {
-        if (action.name() == "Up") { std::cout << "doAction - Up: " << m_selectedMenuIndex << "\n"; }
-        if (action.name() == "Down") { std::cout << "doAction - Down: " << m_selectedMenuIndex << "\n"; }
+        if (action.name() == "Up")
+        {
+            if (m_selectedMenuIndex > 0)
+                m_selectedMenuIndex--;
+            else
+                m_selectedMenuIndex = m_menuStrings.size() - 1;
+        }
+        if (action.name() == "Down")
+        {
+            m_selectedMenuIndex = (m_selectedMenuIndex + 1) % m_menuStrings.size();
+        }
         if (action.name() == "Play")
         {
-            std::cout << "doAction - Play: " << m_selectedMenuIndex << "\n";
             m_game->changeScene("Play", std::make_shared<ScenePlay>(
                                     m_game,
                                     m_levelPaths[m_selectedMenuIndex]
@@ -95,55 +94,11 @@ void SceneMenu::doAction(const Action& action)
         }
         if (action.name() == "Quit") { onEnd(); }
     }
-    else if (action.type() == "End")
-    {
-        if (action.name() == "UP") { std::cout << "End and up!\n"; } // e.g.
-        if (action.name() == "Quit")
-        {
-            std::cout << "Quitting the game\n";
-            onEnd();
-        }
-    }
 }
 
-void SceneMenu::onEnd() { std::cout << "End\n"; }
-
-void SceneMenu::sUserInput()
+void SceneMenu::doAction(const Action& action)
 {
-    sf::Event event{};
-    while (m_game->window().pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-        {
-            m_game->quit();
-        }
-
-        // this event is triggered when a key is pressed
-        if (event.type == sf::Event::KeyPressed)
-        {
-            switch (event.key.code)
-            {
-                case sf::Keyboard::Escape:
-                    m_game->quit();
-                    break;
-                case sf::Keyboard::W:
-                    if (m_selectedMenuIndex > 0)
-                        m_selectedMenuIndex--;
-                    else
-                        m_selectedMenuIndex = m_menuStrings.size() - 1;
-                    break;
-                case sf::Keyboard::S:
-                    m_selectedMenuIndex = (m_selectedMenuIndex + 1) % m_menuStrings.size();
-                    break;
-                case sf::Keyboard::D:
-                    std::cout << "Title: " << m_menuStrings[m_selectedMenuIndex] << "\n";
-                    m_game->changeScene(
-                        m_menuStrings[m_selectedMenuIndex],
-                        std::make_shared<ScenePlay>(m_game, m_levelPaths.at(m_selectedMenuIndex)));
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    sDoAction(action);
 }
+
+void SceneMenu::onEnd() { m_game->quit(); }
