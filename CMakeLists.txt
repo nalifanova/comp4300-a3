@@ -85,3 +85,15 @@ if(WIN32)
         PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
         VERBATIM)
 endif()
+
+file(GLOB fonts ${CMAKE_SOURCE_DIR}/assets/fonts/*.ttf)
+file(GLOB texts ${CMAKE_SOURCE_DIR}/assets/*.txt)
+file(GLOB marioimg ${CMAKE_SOURCE_DIR}/assets/images/mario/*.png)
+file(GLOB megamanimg ${CMAKE_SOURCE_DIR}/assets/images/megaman/*.png)
+file(GLOB animimg ${CMAKE_SOURCE_DIR}/assets/images/animations/*.png)
+
+file(COPY ${fonst} DESTINATION ${CMAKE_BINARY_DIR}/assets/fonts)
+file(COPY ${texts} DESTINATION ${CMAKE_BINARY_DIR}/assets)
+file(COPY ${marioimg} DESTINATION ${CMAKE_BINARY_DIR}/assets/images/mario)
+file(COPY ${megamanimg} DESTINATION ${CMAKE_BINARY_DIR}/assets/images/megaman)
+file(COPY ${animimg} DESTINATION ${CMAKE_BINARY_DIR}/assets/images/animations)

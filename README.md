@@ -43,3 +43,19 @@ to ensure that the code remains readable and consistent.
   Related header, C system headers, C++ standard library headers, other headers;
 * In a class I prefer to see public methods, private methods, public vars, private vars. Exactly
   in this order.
+
+## DevNote
+
+To run the game do the following
+
+```bash
+mkdir -p GAME11/BUILD && cd GAME11/BUILD
+cmake ../..
+make
+./bin/Game11
+```
+
+Or run the script
+```bash
+chmod +x PlayGame.sh && ./PlayGame.sh
+```
