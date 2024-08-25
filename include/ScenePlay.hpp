@@ -14,6 +14,12 @@ struct PlayerConfig
     std::string weapon;
 };
 
+struct DecTileConfig
+{
+    std::string name;
+    float x, y;
+};
+
 class ScenePlay: public Scene
 {
 public:
@@ -25,7 +31,7 @@ public:
     void sRender() override;
     void doAction(const Action& action) override;
 
-    Vec2 gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity> entity);
+    Vec2 gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity>& entity);
     void spawnPlayer();
     void spawnBullet(std::shared_ptr<Entity> entity);
 
@@ -43,6 +49,8 @@ protected:
     std::shared_ptr<Entity> m_player;
     std::string m_levelPath;
     PlayerConfig m_playerConfig;
+    DecTileConfig m_dtConfig;
+
     bool m_drawTextures = true;
     bool m_drawCollision = false;
     bool m_drawGrid = false;
@@ -50,9 +58,9 @@ protected:
     sf::Text m_gridText;
 
 private:
+    void m_createEntity(const DecTileConfig& tile);
     void debugMessage(const std::string& message) const;
     EntityManager m_entityManager;
-
 };
 
 #endif //SCENEPLAY_HPP

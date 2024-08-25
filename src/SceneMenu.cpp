@@ -13,7 +13,7 @@ void SceneMenu::sRender()
     m_menuText.setString(m_title);
     m_menuText.setCharacterSize(32);
     m_menuText.setFillColor(sf::Color::Black);
-    m_menuText.setPosition(sf::Vector2f(width() / 2 - m_menuText.getCharacterSize() * 3, 10));
+    m_menuText.setPosition(sf::Vector2f(width() / 2 - m_menuText.getCharacterSize() * 4, 10));
     m_game->window().draw(m_menuText);
 
     m_menuText.setString("A: Left    S: Down    Up: W    D: Play");
@@ -31,7 +31,7 @@ void SceneMenu::sRender()
         m_menuText.setString(m_menuStrings[i]);
         m_menuText.setCharacterSize(fontSize);
         m_menuText.setPosition(sf::Vector2f(
-                width() / 2.0f - m_menuText.getCharacterSize() * 2.0f,
+                width() / 2.0f - m_menuText.getCharacterSize() * 3.5f,
                 height() - m_menuText.getCharacterSize() * 5 - height() / 2.0 + i * 50
                 )
             );

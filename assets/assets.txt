@@ -1,7 +1,8 @@
 Texture     TexStand    images/megaman/stand64.png
-Texture     TexNone     images/megaman/shot64.png
+Texture     TexShoot    images/megaman/shoot64.png
 Texture     TexRun      images/megaman/run64.png
 Texture     TexAir      images/megaman/air64.png
+Texture     TexSlit     images/megaman/slit64.png
 Texture     TexBuster   images/megaman/buster64.png
 Texture     TexExplode  images/megaman/explosion64.png
 Texture     TexCoin     images/megaman/coinspin64.png
@@ -17,9 +18,13 @@ Texture     TexBushBig  images/mario/bushbig.png
 Texture     TexGround   images/mario/ground64.png
 Texture     TexBlock    images/mario/block64.png
 Texture     TexPole     images/mario/flagpole.png
+Texture     TexPoleTop  images/mario/flagtop.png
+Texture     TexFlag     images/mario/flag.png
 Animation   Stand       TexStand    1   0
+Animation   Shoot       TexShoot    1   0
 Animation   Run         TexRun      4   10
 Animation   Air         TexAir      1   0
+Animation   Slit        TexSlit     1   0
 Animation   Buster      TexBuster   1   0
 Animation   Explosion   TexExplode  48  2
 Animation   Coin        TexCoin     6   5
@@ -34,7 +39,9 @@ Animation   Bush        TexBush     1   0
 Animation   BushBig     TexBushBig  1   0
 Animation   Ground      TexGround   1   0
 Animation   Block       TexBlock    1   0
+Animation   Flag        TexFlag     1   0
 Animation   Pole        TexPole     1   0
+Animation   PoleTop     TexPoleTop  1   0
 Font        Tech        fonts/tech.ttf
 Font        Mario       fonts/mario.ttf
 Font        Pixel       fonts/pixeled.ttf

@@ -51,6 +51,7 @@ public:
     bool down = false;
     bool left = false;
     bool right = false;
+    bool slit = false;
     bool shoot = false;
     bool canShoot = true;
     bool canJump = true;
