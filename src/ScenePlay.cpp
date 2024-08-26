@@ -417,7 +417,7 @@ void ScenePlay::doAction(const Action& action)
 void ScenePlay::showBrickCollision(const std::shared_ptr<Entity>& entity)
 {
     entity->getComponent<CAnimation>().animation = m_game->assets().getAnimation("Explosion");
-    entity->addComponent<CLifeSpan>(60, m_currentFrame);
+    entity->addComponent<CLifeSpan>(15, m_currentFrame);
 }
 
 void ScenePlay::showQuestionCollision(std::shared_ptr<Entity>& entity)
