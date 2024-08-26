@@ -420,7 +420,6 @@ void ScenePlay::doAction(const Action& action)
     sDoAction(action);
 }
 
-
 void ScenePlay::showBrickCollision(const std::shared_ptr<Entity>& entity)
 {
     // Option 1
@@ -450,7 +449,6 @@ void ScenePlay::showQuestionCollision(std::shared_ptr<Entity>& entity)
     q2->addComponent<CBoundingBox>(m_gridSize);
     entity->destroy();
 }
-
 
 // private methods
 void ScenePlay::m_createEntity(const DecTileConfig& tile, const std::string& type)
@@ -485,5 +483,3 @@ void ScenePlay::debugMessage(const std::string& message) const
         text.getCharacterSize() - 10));
     m_game->window().draw(text);
 }
-
-
