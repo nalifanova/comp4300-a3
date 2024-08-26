@@ -21,6 +21,7 @@ with textures. I'm not sure if it fits the current Assignment but I work with wh
 For more information about assignment itself, please read the
 [ASSIGNMENT.md](ASSIGNMENT03.md) file.
 
+![Mega Man](assets/images/megaman.png)
 
 ## Dev Notes
 I'm using CLion as my IDE, and I try to follow a guideline from
@@ -44,9 +45,7 @@ to ensure that the code remains readable and consistent.
 * In a class I prefer to see public methods, private methods, public vars, private vars. Exactly
   in this order.
 
-## DevNote
-
-To run the game do the following
+### Build & run
 
 ```bash
 mkdir -p GAME11/BUILD && cd GAME11/BUILD
@@ -59,3 +58,9 @@ Or run the script
 ```bash
 chmod +x PlayGame.sh && ./PlayGame.sh
 ```
+
+### My Thoughts
+This assignment was truly amazing. The new ECS architecture and the innovative use of tuples as 
+presented here are really impressive.
+
+I didn't limit my Megaman's jumping, so now he can "jump-fly," lol. All in all, it was a great experience.
