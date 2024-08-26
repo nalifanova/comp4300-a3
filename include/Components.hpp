@@ -101,6 +101,7 @@ public:
         state(std::move(s)) {};
 
     std::string state = "jumping";
+    bool isInAir = true;
 };
 
 #endif //COMPONENTS_HPP
