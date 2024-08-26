@@ -40,13 +40,7 @@ Vec2 ScenePlay::gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity>
 {
     // pos_x + grid_x / 2 - math.ceil(anim_x / 2) + 1)
     auto size = entity->getComponent<CAnimation>().animation.getSize();
-    Vec2 position{
-        gridX + m_gridSize.x / 2.0f - size.x / m_gridSize.x + 1.0f
-      , gridY + m_gridSize.y / 2.0f - size.y / m_gridSize.y + 1.0f
-    };
-    // vertical flip height() - dec.y * m_gridSize.x - m_gridSize.y
-    position.y = height() - position.y;
-    return position;
+    return {gridX  + size.x / 2.0f, height() - gridY  - size.y / 2.0f};
 }
 
 void ScenePlay::loadLevel(const std::string& filename)
@@ -212,7 +206,7 @@ void ScenePlay::sCollision()
             const auto prevOverlap = Physics::getPreviouslyOverlap(m_player, el);
             const auto& t = el->getComponent<CTransform>();
 
-            if (prevOverlap.x >= 0.0f) // top/bottom collision
+            if (prevOverlap.x > 0.0f) // top/bottom collision
             {
                 // down
                 if (plTransf.pos.y < t.pos.y)
@@ -422,14 +416,8 @@ void ScenePlay::doAction(const Action& action)
 
 void ScenePlay::showBrickCollision(const std::shared_ptr<Entity>& entity)
 {
-    // Option 1
     entity->getComponent<CAnimation>().animation = m_game->assets().getAnimation("Explosion");
     entity->addComponent<CLifeSpan>(60, m_currentFrame);
-    // Option 2
-    // auto expl = m_entityManager.addEntity("Tile");
-    // expl->addComponent<CAnimation>(m_game->assets().getAnimation("Explosion"));
-    // expl->addComponent<CTransform>(entity->getComponent<CTransform>().pos);
-    // entity->destroy();
 }
 
 void ScenePlay::showQuestionCollision(std::shared_ptr<Entity>& entity)
@@ -444,7 +432,7 @@ void ScenePlay::showQuestionCollision(std::shared_ptr<Entity>& entity)
     coin->addComponent<CLifeSpan>(30, m_currentFrame);
     // replace Question by inective
     auto q2 = m_entityManager.addEntity("Tile");
-    q2->addComponent<CAnimation>(m_game->assets().getAnimation("Question2"));
+    q2->addComponent<CAnimation>(m_game->assets().getAnimation("Question2"), true);
     q2->addComponent<CTransform>(entity->getComponent<CTransform>().pos);
     q2->addComponent<CBoundingBox>(m_gridSize);
     entity->destroy();
@@ -465,10 +453,14 @@ void ScenePlay::m_createEntity(const DecTileConfig& tile, const std::string& typ
     {
         transf.scale.x = m_gridSize.x / anim.getSize().x;
         transf.scale.y = m_gridSize.y / anim.getSize().y;
-        transf.pos.x -= 1.0f;
-        transf.pos.y += 1.0f;
+        transf.pos.x += 24.0f; // hack
+        transf.pos.y -= 24.0f;
+        entity->addComponent<CBoundingBox>(Vec2(m_gridSize));
     }
-    entity->addComponent<CBoundingBox>(Vec2(m_gridSize));
+    else
+    {
+        entity->addComponent<CBoundingBox>(anim.getSize());
+    }
 }
 
 void ScenePlay::debugMessage(const std::string& message) const
