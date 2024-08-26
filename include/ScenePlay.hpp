@@ -33,7 +33,7 @@ public:
 
     Vec2 gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity>& entity);
     void spawnPlayer();
-    void spawnBullet(std::shared_ptr<Entity> entity);
+    void spawnBullet(std::shared_ptr<Entity>& entity);
 
     void sMovement();
     void sLifespan();
@@ -45,6 +45,8 @@ protected:
 
     void init(const std::string& levelPath);
     void loadLevel(const std::string& filename);
+    void showBrickCollision(const std::shared_ptr<Entity>& entity);
+    void showQuestionCollision(std::shared_ptr<Entity>& entity);
 
     std::shared_ptr<Entity> m_player;
     std::string m_levelPath;
@@ -58,7 +60,7 @@ protected:
     sf::Text m_gridText;
 
 private:
-    void m_createEntity(const DecTileConfig& tile);
+    void m_createEntity(const DecTileConfig& tile, const std::string& type);
     void debugMessage(const std::string& message) const;
     EntityManager m_entityManager;
 };
